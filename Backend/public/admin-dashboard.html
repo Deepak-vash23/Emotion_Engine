@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    .delete-btn {
+      color: white;
+      background-color: red;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .delete-btn:hover {
+      background-color: darkred;
+    }
+  </style>
+</head>
+<body>
+  <h1>Admin Dashboard</h1>
+  <h2>All Users</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="userTableBody">
+      <!-- Users will load here -->
+    </tbody>
+  </table>
+
+<button onclick="loadUsers()">Show All Users</button>
+<script>
+    const userTableBody = document.getElementById('userTableBody');
+
+    // Load users from backend
+    async function loadUsers() {
+        try {
+            const res = await fetch('http://localhost:5000/api/users');
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            const users = await res.json();
+
+            userTableBody.innerHTML = '';
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td><button class="delete-btn" onclick="deleteUser('${user.id}')">Delete</button></td>
+                `;
+                userTableBody.appendChild(row);
+            });
+        } catch (error) {
+            console.error('Failed to load users:', error);
+        }
+    }
+
+    async function deleteUser(userId) {
+        try {
+            const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+                method: 'DELETE',
+            });
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            alert('User deleted successfully');
+            loadUsers(); // Refresh the user list
+        } catch (error) {
+            console.error('Failed to delete user:', error);
+        }
+    }
+
+</script>
+</body>
+</html>
