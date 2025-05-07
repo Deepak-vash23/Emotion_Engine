@@ -2,10 +2,10 @@ import express from 'express';
 import mysql from 'mysql2';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { registerUser, loginUser, getAllUsers, getUserById } from './controllers/usercontroller.js';
+import { registerUser, loginUser, getAllUsers, getUserById } from '../controllers/usercontroller.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import userRoutes from './routes/userRoutes.js';
+import userRoutes from '../routes/userRoutes.js';
 import { spawn } from "child_process";
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
