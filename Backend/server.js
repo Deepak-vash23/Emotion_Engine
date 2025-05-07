@@ -6,54 +6,70 @@ import { registerUser, loginUser, getAllUsers, getUserById } from './controllers
 import path from 'path';
 import { fileURLToPath } from 'url';
 import userRoutes from './routes/userRoutes.js';
+import { spawn } from "child_process";
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-
 const app = express();
+
+// Middleware
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/api',userRoutes);
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-// MySQL Connection
+// Serve static frontend from /public
+app.use(express.static(path.join(__dirname, 'public')));
+
+// API routes
+app.use('/api', userRoutes);
+
+// MySQL connection
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root', 
+  user: 'root',
   password: 'your_password_here',
   database: 'emotion_engine',
 });
 
-// Connect to Database
 db.connect((err) => {
   if (err) {
     console.error('Database connection failed:', err.message);
-    process.exit(1); 
+    process.exit(1);
   }
   console.log('Connected to MySQL Database.');
 });
 
-// User Routes
-app.post('/api/register', registerUser);
-app.post('/api/login', loginUser);
-app.get('/api/users', getAllUsers);
-app.get('/api/users/:id', getUserById);
-
-
-import {createProxyMiddleware} from 'http-proxy-middleware';
-
+// Proxy /chatbot to Streamlit server
 app.use('/chatbot', createProxyMiddleware({
   target: 'http://localhost:8501',
   changeOrigin: true,
   pathRewrite: {
-    '^/chatbot': '', // So /chatbot behaves as root for Streamlit
+    '^/chatbot': '',
   },
 }));
 
+// Spawn Streamlit Chatbot (DO NOT open browser)
+const chatbotProcess = spawn("streamlit", ["run", "KOKO_AI.py", "--server.headless=true"], {
+  cwd: path.join(__dirname, "KOKO_Ai-main"),
+  shell: true,
+});
 
-// Start the Server
-app.listen(5000, () => {
-  console.log('Server running on http://localhost:5000');
+chatbotProcess.stdout.on("data", (data) => {
+  console.log(`Chatbot: ${data}`);
+});
+
+chatbotProcess.stderr.on("data", (data) => {
+  console.error(`Chatbot Error: ${data}`);
+});
+
+chatbotProcess.on("close", (code) => {
+  console.log(`Chatbot exited with code ${code}`);
+});
+
+// Start Express server
+const PORT = 5000;
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });
