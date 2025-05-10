@@ -2,7 +2,7 @@ import express from 'express';
 import mysql from 'mysql2';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { registerUser, login, getAllUsers, getUserById } from './controllers/usercontroller.js';
+import { registerUser, login, getAllUsers, getUserById } from './controllers/userController.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import userRoutes from './routes/userRoutes.js';
