@@ -20,6 +20,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 // User Routes
+app.use('/api', userRoutes);
 app.post('/api/register', registerUser);
 app.post('/api/login', login);
 app.get('/api/users', getAllUsers);
@@ -28,24 +29,21 @@ app.get('/api/users/:id', getUserById);
 // Serve static frontend from /public
 app.use(express.static(path.join(__dirname, 'public')));
 
-// API routes
-app.use('/api', userRoutes);
+// // MySQL connection
+// const db = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'your_password_here',
+//   database: 'emotion_engine',
+// });
 
-// MySQL connection
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'your_password_here',
-  database: 'emotion_engine',
-});
-
-db.connect((err) => {
-  if (err) {
-    console.error('Database connection failed:', err.message);
-    process.exit(1);
-  }
-  console.log('Connected to MySQL Database.');
-});
+// db.connect((err) => {
+//   if (err) {
+//     console.error('Database connection failed:', err.message);
+//     process.exit(1);
+//   }
+//   console.log('Connected to MySQL Database.');
+// });
 
 // Proxy /chatbot to Streamlit server
 app.use('/chatbot', createProxyMiddleware({
