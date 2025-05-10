@@ -52,7 +52,7 @@ export const registerUser = async (req, res) => {
 };
 
 // Login User
-export const loginUser = async (req, res) => {
+export const login = async (req, res) => {
   const { email, password } = req.body;
 
   // Check if user exists

@@ -2,10 +2,10 @@ import express from 'express';
 import mysql from 'mysql2';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { registerUser, loginUser, getAllUsers, getUserById } from '../controllers/usercontroller.js';
+import { registerUser, login, getAllUsers, getUserById } from './controllers/usercontroller.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import userRoutes from '../routes/userRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 import { spawn } from "child_process";
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
@@ -18,6 +18,12 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+
+// User Routes
+app.post('/api/register', registerUser);
+app.post('/api/login', login);
+app.get('/api/users', getAllUsers);
+app.get('/api/users/:id', getUserById);
 
 // Serve static frontend from /public
 app.use(express.static(path.join(__dirname, 'public')));
