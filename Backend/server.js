@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url';
 import userRoutes from './routes/userRoutes.js';
 import { spawn } from "child_process";
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import { connectdb } from './lib/db.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,20 +31,20 @@ app.get('/api/users/:id', getUserById);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // MySQL connection
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'your_password_here',
-  database: 'emotion_engine',
-});
+// const db = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'your_password_here',
+//   database: 'emotion_engine',
+// });
 
-db.connect((err) => {
-  if (err) {
-    console.error('Database connection failed:', err.message);
-    process.exit(1);
-  }
-  console.log('Connected to MySQL Database.');
-});
+// db.connect((err) => {
+//   if (err) {
+//     console.error('Database connection failed:', err.message);
+//     process.exit(1);
+//   }
+//   console.log('Connected to MySQL Database.');
+// });
 
 // Proxy /chatbot to Streamlit server
 app.use('/chatbot', createProxyMiddleware({
@@ -53,6 +54,13 @@ app.use('/chatbot', createProxyMiddleware({
     '^/chatbot': '',
   },
 }));
+
+// Start Express server
+const PORT = 5000;
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+  connectdb();
+});
 
 // Spawn Streamlit Chatbot (DO NOT open browser)
 const chatbotProcess = spawn("streamlit", ["run", "KOKO_AI.py", "--server.headless=true"], {
@@ -70,10 +78,4 @@ chatbotProcess.stderr.on("data", (data) => {
 
 chatbotProcess.on("close", (code) => {
   console.log(`Chatbot exited with code ${code}`);
-});
-
-// Start Express server
-const PORT = 5000;
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
 });

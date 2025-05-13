@@ -97,7 +97,6 @@ export const login = async (req, res) => {
 //     res.status(500).json({ message: 'Error retrieving users' });
 //   }
 // };
-// In controllers/usercontroller.js
 export const getAllUsers = (req, res) => {
   db.query('SELECT * FROM users', (err, result) => {
     if (err) return res.status(500).json({ message: 'Database error' });
