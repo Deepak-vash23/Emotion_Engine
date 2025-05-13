@@ -73,14 +73,14 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Title
-st.markdown("<h1 style='text-align: center; color: #F8E7FC;'>💬KOKO Ai </h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #F8E7FC;'>💬Mood Mate </h1>", unsafe_allow_html=True)
 st.write("😇 **Your compassionate companion for a healthier mind.**")
 
 # Session State for Chat History
 if "messages" not in st.session_state:
     st.session_state.messages = [
         ("ai-message",
-         "<strong>KOKO Ai:</strong> Hello! I am here to support you. How are you feeling right now?",
+         "<strong>Mood Mate:</strong> Hello! I am here to support you. How are you feeling right now?",
          datetime.datetime.now().strftime("%H:%M:%S"))
     ]
 
@@ -114,13 +114,13 @@ if send_btn:
         st.session_state.messages.append(("user-message", f"<strong>You:</strong> {user_input}", timestamp))
 
         # Typing Indicator Effect
-        with st.spinner("KOKO is thinking..."):
+        with st.spinner("Mate is thinking..."):
             time.sleep(0.5)
             dataset = load_mental_health_data()
             response = get_response(user_input, dataset)
 
         timestamp = datetime.datetime.now().strftime("%H:%M:%S")  # Timestamp for AI response
-        st.session_state.messages.append(("ai-message", f"<strong>KOKO Ai:</strong> {response}", timestamp))
+        st.session_state.messages.append(("ai-message", f"<strong>Mate:</strong> {response}", timestamp))
 
         st.rerun()
     else:
