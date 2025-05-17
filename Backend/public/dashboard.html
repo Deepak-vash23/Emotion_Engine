@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <style>
+    /* Additional Styles for the logout button */
+    .logout-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .logout-btn:hover {
+      background-color: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Toggle Button and Dropdown Menu -->
+  <!-- <div class="toggle-container">
+    <button id="toggleBtn" class="toggle-btn">☰</button>
+    <div id="dropdownMenu" class="dropdown-menu">
+      <a href="#" id="logoutBtn">Logout</a>
+    </div>
+  </div> -->
+
+  <!-- New Logout Button at Top-Right -->
+  <button class="logout-btn" id="logoutButton">Logout</button>
+
+  <div class="profile-page">
+    <div class="profile-header">
+      <img src="image.png" alt="Profile Image" class="profile-img" />
+      <div class="profile-info">
+        <div class="profile-country">🌐 Location</div>
+        <h2 class="profile-name" id="profileName">Loading...</h2>
+        <p class="profile-role" id="profileEmail">Loading...</p>
+      </div>
+    </div>
+
+    <div class="profile-sections">
+      <div class="contact-box">
+        <h3>Contact information</h3>
+        <ul>
+          <li><strong>Name:</strong> <span id="contactName">...</span></li>
+          <li><strong>Your email:</strong> <span id="contactEmail">...</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Load user data from localStorage
+  //   const user = JSON.parse(localStorage.getItem("user"));
+
+  //   if (!user) {
+  //     alert("User not logged in!");
+  //     window.location.href = "/login.html";
+  //   } else {
+  //     document.getElementById("profileName").textContent = user.name;
+  //     document.getElementById("profileEmail").textContent = user.email;
+  //     document.getElementById("contactName").textContent = user.name;
+  //     document.getElementById("contactEmail").textContent = user.email;
+  //   }
+
+  //   // Logout functionality for both the button and dropdown link
+  //   document.getElementById("logoutButton").addEventListener("click", () => {
+  //     localStorage.clear();
+  //     window.location.href = "/login.html";
+  //   });
+
+  //   document.getElementById("logoutBtn").addEventListener("click", () => {
+  //     localStorage.clear();
+  //     window.location.href = "/login.html";
+  //   });
+  // </script>
+</body>
+</html>

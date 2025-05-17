@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Emotion Engine - Home</title>
+  <link rel="stylesheet" href="styles.css"/>
+
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+ <!-- Smooth Scroll CSS -->
+ <style>
+  html {
+    scroll-behavior: smooth;
+  }
+  .typewriter-line {
+    font-size: 4rem; /* Adjust this value as needed */
+    line-height: 1.2;
+    font-weight: bold;
+    text-align: center;
+  }
+</style>
+</head>
+
+<body>
+
+  <!-- Background Overlay -->
+  <div class="overlay"></div>
+
+  <!-- Header with logo and hamburger menu -->
+
+  <header>
+    <h1 class="logo"><i class="fas fa-brain"></i> Emotion Engine</h1>
+    
+    <nav>
+      <a href="#">Home</a>
+      <a href="#about">About</a>
+      <a href="chatbot.html">Chatbot</a>
+      <a href="login.html" class="btn btn-primary">Login</a>
+      <a href="signup.html" class="btn btn-secondary">Sign Up</a>
+      
+    </nav>
+    <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+
+  </header>
+  
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <!-- <h1>One platform.<br/>Infinite <i class="fas fa-rocket"></i> growth.</h1> -->
+    <h1>
+      <span class="typewriter-line" id="line1"></span><br />
+      <span class="typewriter-line" id="line2"></span>
+    </h1>
+    
+    <p>Fueling your tech with emotional intelligence because real connection starts with understanding.</p>
+    <a href= "signup.html" class="btn btn-secondary fade-in-demo" id="demoBtn">Schedule a Demo</a>
+
+    <!-- Features Section -->
+    <div class="features">
+      <div class="feature-card">
+        <i class="fas fa-comments fa-2x"></i>
+        <strong>Seamless Chatbot Assistance</strong>
+        <p>24/7 intelligent chatbot support.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-puzzle-piece fa-2x"></i>
+        <strong>App Integrations</strong>
+        <p>Connect your favorite tools.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-shield-alt fa-2x"></i>
+        <strong>Advanced Security</strong>
+        <p>Top-tier data protection.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-robot fa-2x"></i>
+        <strong>AI-Driven Drafting</strong>
+        <p>Draft emails & proposals faster.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Scroll-triggered animation script -->
+  <script>
+    const cards = document.querySelectorAll('.feature-card');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    cards.forEach(card => observer.observe(card));
+
+  
+  const toggleBtn = document.querySelector(".menu-toggle");
+  const nav = document.querySelector("header nav");
+
+  toggleBtn.addEventListener("click", () => {
+    nav.classList.toggle("show");
+  });
+
+  </script>
+
+<section id="about" class="mission-section">
+  <main class="hero">
+    <h1>About Us</h1>
+    <p>Emotion Engine is built to bring empathy to technology — powering deeper human connection through emotional intelligence.</p>
+  </main>
+
+  <section class="mission">
+    <h2>Our Mission</h2>
+    <p>
+      We aim to infuse emotion into every interaction—building tools that understand and respond with empathy. Our vision is to make technology feel more human.
+    </p>
+  </section>
+
+  <section class="team-section">
+    <h2>BIT BENDERS</h2>
+    <div class="team-grid">
+  <div class="team-member">
+
+          <h3>Deepak Vashisth</h3>
+          <p style="color: black;">Full Stack Developer</p>
+          <div class="social-links">
+            <a href="http://www.linkedin.com/in/deepak-vashisth" target="_blank"><i class="fab fa-linkedin"  style="font-size: 40px;"></i></a>
+          </div>
+        </div>
+      
+        <div class="team-member">
+          <h3>Mradul Khandelwal</h3>
+          <p style="color: black;">Backend Engineer</p>
+          <div class="social-links">
+            <a href= "https://www.linkedin.com/in/mradul-khandelwal" target="_blank"><i class="fab fa-linkedin"  style="font-size: 40px;"></i></a>
+          </div>
+        </div>
+      
+        <div class="team-member">
+          <h3>Riya Raghav</h3>
+          <p style="color: black;">Frontend Developer</p>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/riya-raghav" target="_blank"><i class="fab fa-linkedin"  style="font-size: 40px;"></i></a>
+          </div>
+        </div>
+  
+        <div class="team-member">
+          <h3>Kashish Singh</h3>
+          <p style="color: black;">Backend Engineer</p>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/kashish-singh" target="_blank"><i class="fab fa-linkedin"  style="font-size: 40px;"></i></a>
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+ </section> 
+
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2025 Emotion Engine. All rights reserved.</p>
+  <div class="social-icons">
+    <i class="fab fa-twitter"></i>
+    <i class="fab fa-linkedin"></i>
+    <i class="fab fa-github"></i>
+  </div>
+</footer>
+
+<script>
+  const line1Text = "One Platform";
+  const line2Text = "Infinite Growth 🚀";
+  const line1 = document.getElementById('line1');
+  const line2 = document.getElementById('line2');
+  const demoBtn = document.getElementById('demoBtn');
+  let i = 0;
+  let j = 0;
+
+  function typeFirstLine() {
+    if (i < line1Text.length) {
+      line1.innerHTML += line1Text.charAt(i);
+      i++;
+      setTimeout(typeFirstLine, 120);
+    } else {
+      setTimeout(typeSecondLine, 120);
+    }
+  }
+
+  function typeSecondLine() {
+    if (j < line2Text.length) {
+      line2.innerHTML += line2Text.charAt(j);
+      j++;
+      setTimeout(typeSecondLine, 100);
+    } else {
+      setTimeout(() => {
+        demoBtn.classList.add('visible');
+      }, 500);
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', typeFirstLine);
+</script>
+
+
+</body>
+</html>
